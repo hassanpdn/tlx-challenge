@@ -20,7 +20,7 @@
       --table-border: #f4f4f4;
       --table-head-bg: #f7f8f8;
       --table-row-bg: #f7faff;
-      --table-row-hover-bg: #f7faff;
+      --table-row-hover-bg: #f5f5f5;
 
       /* Font sizes */
       --font-size-xs: 0.75rem;
@@ -42,10 +42,6 @@
       --radius-md: 8px;
       --radius-lg: 12px;
       --radius-xl: 18px;
-      --solid-light-border: 1px solid var(--c-light-gray);
-      --solid-dark-border: 1px solid var(--c-dark-gray);
-      --dashed-light-border: 1px dashed var(--c-light-gray);
-      --dashed-dark-border: 1px dashed var(--c-dark-gray);
 
       /* Breakpoints */
       --breakpoint-xs: 0;

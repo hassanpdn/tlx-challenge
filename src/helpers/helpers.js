@@ -1,5 +1,7 @@
-const numberSeperator = (number) => {
+const priceSeperator = (number) => {
       return new Intl.NumberFormat().format(number);
 }
 
-export { numberSeperator }
+const generateUniqueId = () => Math.random().toString(16).slice(2);
+
+export { priceSeperator, generateUniqueId }

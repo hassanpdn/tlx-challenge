@@ -1,19 +1,27 @@
 <template>
-      <button :class="variant" :disabled="disabled" @click="callback($event)">
+      <button class="btn" :class="variant" :disabled="disabled" @click="callback($event)">
             <span>{{title}}</span>
+            <BaseIcon place="button" class="icon" :icon="icon" />
       </button>
 </template>
 
 <script>
+import BaseIcon from '@/components/base/BaseIcon'
 export default {
       name: "btn",
+      components: {BaseIcon},
       props: {
             variant: {
                   type: String,
                   default: 'normal'
             },
+            icon: {
+                  type: String,
+                  default: ''
+            },
             title: {
-                  type: String
+                  type: String,
+                  default: ''
             },
             disabled: {
                   type: Boolean,
@@ -29,8 +37,11 @@ export default {
 </script>
 
 <style>
-      button {
-            padding: 7px 14px;
+      .btn {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border: 1px solid transparent;
             color: var(--darker-gray);
             border-radius: var(--radius-sm);
@@ -55,8 +66,18 @@ export default {
             background-color: var(--warning);
             color: var(--white);
       }
-      button:hover {
-            box-shadow: 0 3px 21px -7px var(--gray);
-            transition: ease .3s;
+
+      @media (hover: hover) {
+            button:hover {
+                  box-shadow: 0 3px 21px -7px var(--gray);
+                  transition: ease .3s;
+            }
+      }
+
+      @media (hover: none) {
+            button:active {
+                  box-shadow: 0 3px 21px -7px var(--gray);
+                  transition: ease .3s;
+            }
       }
 </style>

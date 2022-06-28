@@ -7,9 +7,9 @@
                         </tr>
                   </thead>
                   <tbody>
-                        <tr v-for="(item , i) in items" :key="`item-${i}`">
+                        <tr v-for="(item , i) in items" :key="`item-${i}`" :class="item.side === 'buy' ? 'buy-item':'sell-item'" @click="handleRowClick(item)">
                               <td :class="{'sell': item['side'] === 'sell' && header.value === 'price', 'buy': item['side'] === 'buy' && header.value === 'price'}" v-for="(header, j) in headers" :key="`header-${j}`">
-                                    {{numberSeperator(item[header.value].toFixed(2))}}
+                                    {{priceSeperator(item[header.value].toFixed(2))}}
                               </td>
                         </tr>
                   </tbody>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {numberSeperator} from '@/helpers/helpers';
+import {priceSeperator} from '@/helpers/helpers';
 export default {
       name: "datatable",
       data(){
@@ -37,11 +37,14 @@ export default {
             }
       },
       methods: {
-            numberSeperator,
+            priceSeperator,
             scrollToBottom(element){
                   const elem = element || document.getElementsByClassName('table')[0];
                   elem.scrollIntoView({block: 'end'});
                   this.scrolled = true;
+            },
+            handleRowClick(item){
+                  this.$emit('rowClick', item)
             }
       },
       updated(){
@@ -55,8 +58,8 @@ export default {
 <style>
       .table-container {
             width: 100%;
-            height: 240px;
-            max-height: 230px;
+            height: 200px;
+            max-height: 200px;
             overflow: auto;
       }
       table {
@@ -81,20 +84,40 @@ export default {
       tbody tr {
             cursor: pointer;
       }
-      tbody tr:nth-child(even) {
+      /* tbody tr:nth-child(even) {
             background: var(--table-row-bg);
-      }
+      } */
       tbody tr .sell {
             color: var(--danger);
       }
       tbody tr .buy {
             color: var(--success);
       }
-      .table-container::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-            display: block;
-            background: transparent;
+      @media (hover: hover) {
+            tbody tr .buy:hover, tbody tr .sell:hover{
+                  color: var(--white);
+            }
+            tbody tr.sell-item:hover {
+                  color: var(--white);
+                  background-color: #efbebe;
+            }
+            tbody tr.buy-item:hover {
+                  color: var(--white);
+                  background-color: #7aad7a;
+            }
+      }
+      @media (hover: none) {
+            tbody tr .buy:active, tbody tr .sell:active{
+                  color: var(--white);
+            }
+            tbody tr.sell-item:active {
+                  color: var(--white);
+                  background-color: #efbebe;
+            }
+            tbody tr.buy-item:active {
+                  color: var(--white);
+                  background-color: #7aad7a;
+            }
       }
 
       .table-container::-webkit-scrollbar {

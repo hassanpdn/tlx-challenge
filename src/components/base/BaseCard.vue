@@ -1,7 +1,8 @@
 <template>
       <div class="card">
-            <div v-if="title" class="card-header">
-                  <span> {{title}} </span>
+            <div v-if="title || $slots.cardHeader" class="card-header">
+                  <slot v-if="$slots.cardHeader" name="cardHeader"></slot>
+                  <span v-else-if="title"> {{title}} </span>
             </div>
             <div class="card-body">
                   <slot/>
