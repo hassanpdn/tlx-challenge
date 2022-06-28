@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderBook renders component 1`] = `
+<div
+  class="card order-book full-width"
+>
+  <div
+    class="card-header"
+  >
+    <div
+      class="card-fix-header"
+    >
+      <span>
+        Order Book
+      </span>
+       
+      <div
+        value="Price"
+      >
+        <label
+          for="base-select"
+        >
+          
+        </label>
+         
+        <select
+          class="select"
+          id="base-select"
+        >
+          <option
+            selected="selected"
+            value="null"
+          >
+            Select a group size
+          </option>
+           
+          <option
+            class="select-dropdown__list-item"
+            value="None"
+          >
+            None
+          </option>
+          <option
+            class="select-dropdown__list-item"
+            value="10"
+          >
+            10
+          </option>
+          <option
+            class="select-dropdown__list-item"
+            value="20"
+          >
+            20
+          </option>
+          <option
+            class="select-dropdown__list-item"
+            value="30"
+          >
+            30
+          </option>
+          <option
+            class="select-dropdown__list-item"
+            value="40"
+          >
+            40
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+   
+  <div
+    class="card-body"
+  >
+     
+    <div
+      class="table-container"
+      id="table"
+    >
+      <table
+        class="table"
+      >
+        <thead>
+          <tr>
+            <th
+              class="row-number"
+            >
+              Price
+            </th>
+            <th
+              class="row-number"
+            >
+              Amount
+            </th>
+          </tr>
+        </thead>
+         
+        <tbody />
+      </table>
+    </div>
+     
+    <div
+      class="card current-mark-price"
+    >
+      <!---->
+       
+      <div
+        class="card-body"
+      >
+        Mark: 0
+      </div>
+    </div>
+     
+    <div
+      class="table-container"
+      id="table"
+    >
+      <table
+        class="table"
+      >
+        <thead>
+          <tr>
+            <th
+              class="row-number"
+            >
+              Price
+            </th>
+            <th
+              class="row-number"
+            >
+              Amount
+            </th>
+          </tr>
+        </thead>
+         
+        <tbody />
+      </table>
+    </div>
+  </div>
+</div>
+`;

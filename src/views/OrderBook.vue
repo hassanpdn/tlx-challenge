@@ -131,9 +131,6 @@ export default {
                   }
                   console.log(sortedSellOrders)
                   return sortedSellOrders;
-            },
-            sortOrders(){
-
             }
       },
       created() {
@@ -151,11 +148,6 @@ export default {
                   this.averageCalculation();
             };
 
-      },
-      async mounted() {
-            this.$nextTick(() => {
-                  this.$refs.sellOrders.scrollToBottom();
-            });
       },
       beforeDestroy() {
             this.connection.close();

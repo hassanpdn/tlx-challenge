@@ -27,17 +27,22 @@
                               price: 0,
                               amount: 0,
                               side: ''
-                        }
+                        },
+                        selectedOrder: {},
+                        insertedOrder: {}
                   }
             },
             methods: {
-                  setOrder(orderItem){
-                        this.order = orderItem;
+                  setOrder(src) {
+                        const res = {};
+                        Object.keys(this.order)
+                              .forEach(k => res[k] = (src[k] ?? this.order[k]));
+                        this.order = Object.assign({}, this.order, res)
                   },
                   async insertOrder(type){
                         this.order.side = type;
                         const res = await(insertNewOrder(this.order));
-                        console.log(res.data.result)
+                        this.insertedOrder = res.data?.order;
                         this.$root.$emit('notify', {state: res.data.result ? 'success' : 'danger', message: res.data.result || 'Invalid price'})
                   }
             },
