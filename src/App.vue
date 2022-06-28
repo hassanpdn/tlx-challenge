@@ -8,8 +8,8 @@
 
 <script>
 // Components
-import OrderBook from '@/components/OrderBook';
-import OrderForm from '@/components/OrderForm';
+import OrderBook from '@/views/OrderBook';
+import OrderForm from '@/views/OrderForm';
 
 export default {
       name: "App",

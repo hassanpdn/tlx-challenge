@@ -28,7 +28,6 @@ import { generateUniqueId } from '@/helpers/helpers';
             },
             methods: {
                   addToast(payload){
-                        console.log(payload)
                         if (!(payload.message && payload.message.length > 0)) return;
                         let new_id = generateUniqueId(5);
                         let new_item = {

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseTable renders component 1`] = `
+<div
+  class="table-container"
+  id="table"
+>
+  <table
+    class="table"
+  >
+    <thead>
+      <tr />
+    </thead>
+     
+    <tbody />
+  </table>
+</div>
+`;

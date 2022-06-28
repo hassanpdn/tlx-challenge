@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseToast renders component 1`] = `
+<div
+  class="toaster"
+>
+  <transition-group-stub
+    class="toasts-wrapper"
+    name="toasts-list"
+    tag="div"
+  />
+</div>
+`;

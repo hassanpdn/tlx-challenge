@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseSelect renders component 1`] = `
+<div>
+  <label
+    for="base-select"
+  >
+    
+  </label>
+   
+  <select
+    class="select"
+    id="base-select"
+  >
+    <option
+      selected="selected"
+      value="null"
+    >
+      Select a group size
+    </option>
+     
+  </select>
+</div>
+`;

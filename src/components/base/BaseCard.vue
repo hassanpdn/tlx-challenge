@@ -2,7 +2,7 @@
       <div class="card">
             <div v-if="title || $slots.cardHeader" class="card-header">
                   <slot v-if="$slots.cardHeader" name="cardHeader"></slot>
-                  <span v-else-if="title"> {{title}} </span>
+                  <span class="title" v-else-if="title"> {{title}} </span>
             </div>
             <div class="card-body">
                   <slot/>
