@@ -98,17 +98,21 @@ export default {
                   while (index >= 0) {
                         let amountSum = 0;
                         let j = index;
+                        let side;
                         while (j >= 0 && array[j].price <= maxPrice) {
                               amountSum += array[j].amount;
+                              side = array[j].side;
                               j--;
                         }
                         index = j;
                         groupedArray.unshift({
                               price: maxPrice,
                               amount: amountSum,
+                              side: side
                         });
                         maxPrice += Number(this.selectedSize);
                   }
+                  console.log(groupedArray)
                   return groupedArray;
             },
             handleOrdersInsertion(arr){
