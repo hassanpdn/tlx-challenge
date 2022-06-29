@@ -6,17 +6,17 @@
                         <base-select v-model="groupByNumber" @select="select" :list="prices"></base-select>
                   </div>
             </template>
-            <base-table @rowClick="onItemClick" ref="sellOrders" :items="sellOrdersGroupBy" :headers="headers"></base-table>
+            <virtual-scroll @rowClick="onItemClick" :headers="headers" :items="sellOrdersGroupBy"></virtual-scroll>
             <base-card class="current-mark-price">Mark: {{priceSeperator(currentMarkPrice) || '- - -'}}</base-card>
-            <base-table @rowClick="onItemClick" ref="buyOrders" :items="buyOrdersGroupBy" :headers="headers"></base-table>
+            <virtual-scroll @rowClick="onItemClick" :headers="headers" :items="buyOrdersGroupBy"></virtual-scroll>
       </base-card>
 </template>
 
 <script>
 
 // Components
+import VirtualScroll from '@/components/VirtualScroll';
 import BaseCard from "@/components/base/BaseCard.vue";
-import BaseTable from "@/components/base/BaseTable.vue";
 import BaseSelect from "@/components/base/BaseSelect.vue";
 
 // Helpers
@@ -25,7 +25,7 @@ import { webSocket } from "@/services/ws";
 
 export default {
       name: "index",
-      components: { BaseTable, BaseCard, BaseSelect },
+      components: { VirtualScroll, BaseCard, BaseSelect },
       data() {
             return {
                   // Web Socket state
@@ -90,7 +90,7 @@ export default {
                   this.$root.$emit('setOrder', item)
             },
             select(val){
-                  this.groupByNumber = val;
+                  this.groupByNumber = parseInt(val);
             },
             groupBy(array) {
                   const buyOrdersLength = array.length;
@@ -119,7 +119,7 @@ export default {
                         this.items = arr.existing;
                   } 
                   if(arr.delete) {
-                        this.items = this.items.filter(order => !arr.delete.includes(order.id))
+                        this.items = this.items.filter(order => !arr.delete.includes(order.id));
                   }
                   if(arr.insert) {
                         this.items.push(...arr.insert)

@@ -68,6 +68,8 @@ export default {
                   this.currentValue = val;
                   if(val) {
                         this.decrementDisabled = false;
+                  } else {
+                        this.currentValue = 0
                   }
             },
             currentValue(val) {

@@ -110,6 +110,7 @@ exports[`Order Form renders component 1`] = `
     >
       <button
         class="btn sell danger"
+        disabled="disabled"
       >
         <span>
           sell
@@ -130,6 +131,7 @@ exports[`Order Form renders component 1`] = `
        
       <button
         class="btn buy success"
+        disabled="disabled"
       >
         <span>
           buy

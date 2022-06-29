@@ -3,8 +3,8 @@
             <number-control class="number-input" v-model="order.price" icon="usdCoin" label="Price:" :step="5" :min="0"></number-control>
             <number-control class="number-input" v-model="order.amount" icon="angleRight" label="Quantity:" :step="10" :min="0"></number-control>
             <div class="side-selection">
-                  <btn icon="arrowDown" @click="insertOrder('sell')" class="sell" variant="danger" title="sell"/>
-                  <btn icon="arrowUp" @click="insertOrder('buy')" class="buy" variant="success" title="buy"/>
+                  <btn :disabled="!order.price || !order.amount" icon="arrowDown" @click="insertOrder('sell')" class="sell" variant="danger" title="sell"/>
+                  <btn :disabled="!order.price || !order.amount" icon="arrowUp" @click="insertOrder('buy')" class="buy" variant="success" title="buy"/>
             </div>
       </base-card>
 </template>
@@ -27,9 +27,7 @@
                               price: 0,
                               amount: 0,
                               side: ''
-                        },
-                        selectedOrder: {},
-                        insertedOrder: {}
+                        }
                   }
             },
             methods: {
@@ -40,10 +38,13 @@
                         this.order = Object.assign({}, this.order, res)
                   },
                   async insertOrder(type){
+                        if(this.order.amount <= 0 || this.order.price <= 0) {
+                              this.$root.$emit('notify', {state: 'warning' , message: 'Invalid entries', time: 2})
+                              return
+                        } 
                         this.order.side = type;
                         const res = await(insertNewOrder(this.order));
-                        this.insertedOrder = res.data?.order;
-                        this.$root.$emit('notify', {state: res.data.result ? 'success' : 'danger', message: res.data.result || 'Invalid price', time: 2500})
+                        this.$root.$emit('notify', {state: res.data.result ? 'success' : 'danger', message: res.data.result || 'Invalid price', time: 2})
                   }
             },
             mounted(){

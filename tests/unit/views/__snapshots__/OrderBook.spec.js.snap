@@ -66,29 +66,39 @@ exports[`OrderBook renders component 1`] = `
   >
      
     <div
-      class="table-container"
-      id="table"
+      class="root"
+      style="height: 200px; overflow: auto;"
     >
-      <table
-        class="table"
+      <div
+        class="viewport"
+        style="overflow: hidden; height: 150px; position: relative;"
       >
-        <thead>
-          <tr>
-            <th
-              class="row-number"
-            >
-              Price
-            </th>
-            <th
-              class="row-number"
-            >
-              Amount
-            </th>
-          </tr>
-        </thead>
-         
-        <tbody />
-      </table>
+        <div
+          class="spacer"
+          style="transform: translateY(0px);"
+        >
+          <table
+            class="table"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="row-number"
+                >
+                  Price
+                </th>
+                <th
+                  class="row-number"
+                >
+                  Amount
+                </th>
+              </tr>
+            </thead>
+             
+            <tbody />
+          </table>
+        </div>
+      </div>
     </div>
      
     <div
@@ -104,29 +114,39 @@ exports[`OrderBook renders component 1`] = `
     </div>
      
     <div
-      class="table-container"
-      id="table"
+      class="root"
+      style="height: 200px; overflow: auto;"
     >
-      <table
-        class="table"
+      <div
+        class="viewport"
+        style="overflow: hidden; height: 150px; position: relative;"
       >
-        <thead>
-          <tr>
-            <th
-              class="row-number"
-            >
-              Price
-            </th>
-            <th
-              class="row-number"
-            >
-              Amount
-            </th>
-          </tr>
-        </thead>
-         
-        <tbody />
-      </table>
+        <div
+          class="spacer"
+          style="transform: translateY(0px);"
+        >
+          <table
+            class="table"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="row-number"
+                >
+                  Price
+                </th>
+                <th
+                  class="row-number"
+                >
+                  Amount
+                </th>
+              </tr>
+            </thead>
+             
+            <tbody />
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

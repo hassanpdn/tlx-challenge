@@ -13,7 +13,7 @@ import OrderForm from '@/views/OrderForm';
 
 export default {
       name: "App",
-      components: {OrderForm, OrderBook }
+      components: { OrderBook, OrderForm }
 };
 </script>
 
