@@ -67,6 +67,7 @@ exports[`OrderBook renders component 1`] = `
      
     <div
       class="root"
+      id="sell-v-scroller"
       style="height: 200px; overflow: auto;"
     >
       <div
@@ -109,7 +110,7 @@ exports[`OrderBook renders component 1`] = `
       <div
         class="card-body"
       >
-        Mark: 0
+        Mark: - - -
       </div>
     </div>
      
