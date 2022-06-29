@@ -3,12 +3,12 @@
             <template slot="cardHeader">
                   <div class="card-fix-header">
                         <span>Order Book</span>
-                        <base-select v-model="groupByNumber" @select="select" :list="prices"></base-select>
+                        <base-select v-model="selectedSize" @select="sizeSelection" :list="prices"></base-select>
                   </div>
             </template>
-            <virtual-scroll @rowClick="onItemClick" :headers="headers" :items="sellOrdersGroupBy"></virtual-scroll>
+            <virtual-scroll id="sell-v-scroller" @rowClick="onItemClick" :headers="headers" :items="sellOrders"></virtual-scroll>
             <base-card class="current-mark-price">Mark: {{priceSeperator(currentMarkPrice) || '- - -'}}</base-card>
-            <virtual-scroll @rowClick="onItemClick" :headers="headers" :items="buyOrdersGroupBy"></virtual-scroll>
+            <virtual-scroll @rowClick="onItemClick" :headers="headers" :items="buyOrders"></virtual-scroll>
       </base-card>
 </template>
 
@@ -41,35 +41,31 @@ export default {
 
                   // Select state
                   prices: [10, 20, 30, 40],
-                  groupByNumber: null
+                  selectedSize: null
             };
       },
       computed: {
-            buyOrdersGroupBy() {
-                  const buyOrders = this.items.filter((order) => order.side === "buy");
-                  const sortedBuyOrders = this.sortOrders(buyOrders);
-                  if (Number(this.groupByNumber)) {
-                        return this.groupBy(sortedBuyOrders);
-                  }
-                  return sortedBuyOrders;
+            buyOrders() {
+                  const buyItems = this.items.filter((order) => order.side === "buy");
+                  const sortedBuyItems = this.sortArray(buyItems);
+                  if (Number(this.selectedSize)) return this.groupOrdersBySelectedSize(sortedBuyItems);
+                  return sortedBuyItems;
             },
-            sellOrdersGroupBy() {
-                  const sellOrders = this.items.filter((order) => order.side === "sell");
-                  const sortedSellOrders = this.sortOrders(sellOrders);
-                  if (Number(this.groupByNumber)) {
-                        return this.groupBy(sortedSellOrders);
-                  }
-                  return sortedSellOrders;
+            sellOrders() {
+                  const sellItems = this.items.filter((order) => order.side === "sell");
+                  const sortedBuyItems = this.sortArray(sellItems);
+                  if (Number(this.selectedSize)) return this.groupOrdersBySelectedSize(sortedBuyItems)
+                  return sortedBuyItems;
             }
       },
       methods: {
             priceSeperator,
             averageCalculation() {
                   const min_ask = Math.min(
-                        ...this.sellOrdersGroupBy.map((o) => o.price)
+                        ...this.sellOrders.map((o) => o.price)
                   );
                   const max_bid = Math.max(
-                        ...this.buyOrdersGroupBy.map((o) => o.price)
+                        ...this.buyOrders.map((o) => o.price)
                   );
 
                   if (isFinite(min_ask) && isFinite(max_bid)) {
@@ -83,36 +79,37 @@ export default {
                   }
 
             },
-            sortOrders(arr){
-                  return arr.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+            sortArray(arr){
+                  return arr.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
             },
             onItemClick(item){
                   this.$root.$emit('setOrder', item)
             },
-            select(val){
-                  this.groupByNumber = parseInt(val);
+            sizeSelection(val){
+                  if(val) this.selectedSize = parseInt(val);
+                  var container = this.$el.querySelector("#sell-v-scroller");
+                  container.scrollTop = container.scrollHeight;
             },
-            groupBy(array) {
-                  const buyOrdersLength = array.length;
-                  let finalResults = [];
-                  let i = buyOrdersLength - 1;
-                  const priceInteger = Math.trunc(array[i].price);
-                  let maxPrice = priceInteger - (priceInteger % Number(this.groupByNumber)) + Number(this.groupByNumber);
-                  while (i >= 0) {
+            groupOrdersBySelectedSize(array) {
+                  const ordersLength = array.length, groupedArray = [];
+                  let index = ordersLength - 1;
+                  const priceInteger = Math.trunc(array[index].price);
+                  let maxPrice = priceInteger - (priceInteger % Number(this.selectedSize)) + Number(this.selectedSize);
+                  while (index >= 0) {
                         let amountSum = 0;
-                        let j = i;
+                        let j = index;
                         while (j >= 0 && array[j].price <= maxPrice) {
                               amountSum += array[j].amount;
                               j--;
                         }
-                        i = j;
-                        finalResults.unshift({
+                        index = j;
+                        groupedArray.unshift({
                               price: maxPrice,
                               amount: amountSum,
                         });
-                        maxPrice += Number(this.groupByNumber);
+                        maxPrice += Number(this.selectedSize);
                   }
-                  return finalResults;
+                  return groupedArray;
             },
             handleOrdersInsertion(arr){
                   if(arr.existing) {
@@ -128,11 +125,16 @@ export default {
             startSocket(){
                   console.log("Starting connection to WebSocket Server");
                   this.connection = webSocket;
+                  this.openSocketConnection();
+            },
+            openSocketConnection(){
                   this.connection.onopen = function (event) {
                         console.log(event);
                         console.log("Successfully connected to WebSocket");
-                  };
-
+                  }
+                  this.handleOnMessageSocket();
+            },
+            handleOnMessageSocket(){
                   this.connection.onmessage = ({ data }) => {
                         const message = JSON.parse(data);
                         this.handleOrdersInsertion(message);
@@ -142,7 +144,6 @@ export default {
       },
       created() {
             this.startSocket();
-
       },
       beforeDestroy() {
             this.connection.close();

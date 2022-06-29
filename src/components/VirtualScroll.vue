@@ -11,7 +11,7 @@
                               <tbody>
                                     <tr v-for="(item , i) in items.length < 10 ? items : visibleItems" :key="`item-${i}`" :class="item.side === 'buy' ? 'buy-item':'sell-item'" @click="handleRowClick(item)">
                                           <td :class="{'sell': item['side'] === 'sell' && header.value === 'price', 'buy': item['side'] === 'buy' && header.value === 'price'}" v-for="(header, j) in headers" :key="`header-${j}`">
-                                                {{priceSeperator(item[header.value].toFixed(2))}}
+                                                {{priceSeperator(item[header.value])}}
                                           </td>
                                     </tr>
                               </tbody>
@@ -43,7 +43,7 @@
                         rootHeight: 200,
                         rowHeight: 30,
                         scrollTop: 0,
-                        nodePadding: 20,
+                        nodePadding: 20
                   };
             },
             computed: {
@@ -132,10 +132,6 @@
                         typeof largestHeight !== "undefined" && largestHeight !== null
                               ? largestHeight
                               : 30;
-            },
-            updated(){
-                  const container = document.getElementsByClassName('table')[0];
-                  this.scrollToBottom(container);
             },
             destroyed() {
                   this.removeEventListener("scroll", this.handleScroll);
