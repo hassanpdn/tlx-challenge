@@ -23,7 +23,7 @@
             },
             methods: {
                   selectOption(e){
-                        if(typeof parseInt(e.target.value) === 'number' && !isNaN(e.target.value)) this.$emit('select', e.target.value)
+                        this.$emit('select', e.target.value)
                   }
             }
       }

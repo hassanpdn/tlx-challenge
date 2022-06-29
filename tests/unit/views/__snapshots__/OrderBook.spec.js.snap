@@ -14,9 +14,7 @@ exports[`OrderBook renders component 1`] = `
         Order Book
       </span>
        
-      <div
-        value="Price"
-      >
+      <div>
         <label
           for="base-select"
         >
@@ -34,12 +32,6 @@ exports[`OrderBook renders component 1`] = `
             Select a group size
           </option>
            
-          <option
-            class="select-dropdown__list-item"
-            value="None"
-          >
-            None
-          </option>
           <option
             class="select-dropdown__list-item"
             value="10"

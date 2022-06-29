@@ -43,7 +43,7 @@
                         this.order.side = type;
                         const res = await(insertNewOrder(this.order));
                         this.insertedOrder = res.data?.order;
-                        this.$root.$emit('notify', {state: res.data.result ? 'success' : 'danger', message: res.data.result || 'Invalid price'})
+                        this.$root.$emit('notify', {state: res.data.result ? 'success' : 'danger', message: res.data.result || 'Invalid price', time: 2500})
                   }
             },
             mounted(){

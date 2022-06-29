@@ -21,11 +21,6 @@
 import {priceSeperator} from '@/helpers/helpers';
 export default {
       name: "datatable",
-      data(){
-            return {
-                  scrolled: false
-            }
-      },
       props: {
             items: {
                   type: Array,
@@ -41,14 +36,12 @@ export default {
             scrollToBottom(element){
                   const elem = element || document.getElementsByClassName('table')[0];
                   elem.scrollIntoView({block: 'end'});
-                  this.scrolled = true;
             },
             handleRowClick(item){
                   this.$emit('rowClick', item)
             }
       },
       updated(){
-            if(this.scrolled) return
             const container = document.getElementsByClassName('table')[0];
             this.scrollToBottom(container);
       }
